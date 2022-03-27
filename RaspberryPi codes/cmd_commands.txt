@@ -1,0 +1,3 @@
+scp i2cTest.py pi@raspberrypi:/home/pi/Documents/RaspberryPiCodes
+
+cd C:\Users\damia\Documents\GithubRepositories\Master-thesis-Electrical-Enginering\RaspberryPi codes
