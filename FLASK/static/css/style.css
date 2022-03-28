@@ -76,23 +76,25 @@ body {
   }
 
   .camera-bg {
+    /*
     position: fixed; 
     top: 30; 
     left: 50%; 
-  
-    /* Preserve aspet ratio */
+    
 
     min-width: 50%;
     min-height: 50%;
   
-      /* Full height */
+      
     height: 50%;
   
   
-    /* Center and scale the image nicely */
+    
+    
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    */
   
   }
   
