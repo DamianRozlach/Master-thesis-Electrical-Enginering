@@ -106,9 +106,9 @@ body {
 
   header {
     background-color: #414141;
-    background-image: url("kosmos.jpg");
     padding: 30px;
-    text-align: left;
+    text-align: center;
+    width: 100%;
   }
   
   body {
