@@ -103,6 +103,13 @@ body {
     color: white;
     opacity: 0.5;
   }
+
+  header {
+    background-color: #414141;
+    background-image: url("kosmos.jpg");
+    padding: 30px;
+    text-align: left;
+  }
   
   body {
       margin: 0;
