@@ -7,7 +7,7 @@
     box-shadow: 0px 5px 8px #868585;
   }
 
-  #parentH :after{
+  .floatfix:after {
     content:'';
     display:block;
     clear:both;
@@ -26,6 +26,19 @@
     float:left;
     width: 30%;
     background-color:white;
+  }
+
+  #parentB {
+    background-color: white;
+    /*padding: 30px;*/
+    width: 100%;
+    box-shadow: 0px 5px 8px #868585;
+  }
+
+  #parentB :after{
+    content:'';
+    display:block;
+    clear:both;
   }
   
   body {
