@@ -120,6 +120,7 @@ body {
     text-align: left;
     float:left;
     width: 60%;
+    background-color:white;
     
   }
 
@@ -127,6 +128,7 @@ body {
     text-align: center;
     float:left;
     width: 30%;
+    background-color:white;
   }
   
   body {
