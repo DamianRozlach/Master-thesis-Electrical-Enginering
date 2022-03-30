@@ -40,6 +40,11 @@
     display:block;
     clear:both;
   }
+
+  .pad{
+    box-sizing: border-box;
+    padding: 30px;
+  }
   
   body {
       margin: 0;
