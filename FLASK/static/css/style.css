@@ -50,7 +50,7 @@
     margin-bottom: 8px;
   }
 
-  #divVidControl {
+  #divControlText {
     padding: 0px;
     border-radius: 30px;
     text-align: center;
@@ -61,7 +61,7 @@
   #divPanel{
     border-radius: 10%;
     box-shadow: 0px 5px 8px;
-    height: auto;
+    height: 100%;
   }
 
   .pad{
