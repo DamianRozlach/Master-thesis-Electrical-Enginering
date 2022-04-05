@@ -2,7 +2,7 @@
 
   #parentH {
     background-color: white;
-    /*padding: 30px;*/
+    padding-bottom: 10px;
     width: 100%;
     box-shadow: 0px 5px 8px #868585;
   }
@@ -42,6 +42,12 @@
   }
 
   .pad{
+    width: 100%;
+    padding: 10px 0px 0px 30px;
+    box-sizing: border-box;
+  }
+
+  .padS{
     width: 100%;
     padding: 10px 0px 0px 30px;
     box-sizing: border-box;
