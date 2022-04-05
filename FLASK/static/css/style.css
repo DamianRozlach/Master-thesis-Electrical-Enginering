@@ -53,13 +53,13 @@
   }
 
   .control {
-    flex: auto;
+    flex: 50%;
     background-color: #853030;
     /*padding: 20px;*/
   }
 
   .video {
-    flex: auto;
+    flex: 50%;
     /*background-color: #f1f1f1;
     padding: 20px;*/
   }
