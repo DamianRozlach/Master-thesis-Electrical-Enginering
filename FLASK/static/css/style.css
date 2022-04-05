@@ -43,9 +43,9 @@
   }
 
   #divVidText {
-    border: 2px solid rgb(0, 255, 98);
-    padding: 10px;
-    border-radius: 25px;
+    border: 3px solid rgb(0, 255, 98);
+    padding: 0px;
+    border-radius: 10px;
     text-align: center;
   }
 
