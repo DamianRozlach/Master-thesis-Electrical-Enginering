@@ -23,6 +23,7 @@
 
   #div2{
     text-align: center;
+    vertical-align: middle;
     float:left;
     width: 30%;
     background-color:white;
@@ -49,7 +50,7 @@
 
   .padS{
     width: 100%;
-    padding: 10px 0px 0px 30px;
+    padding: 10px 10px 10px 10px;
     box-sizing: border-box;
   }
 
