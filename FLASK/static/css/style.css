@@ -56,10 +56,8 @@
     box-sizing: border-box;
   }
 
-  .padS{
-    width: 100%;
-    padding: 10px 10px 10px 10px;
-    box-sizing: border-box;
+  .marginDiv {
+    margin: 5px;
   }
 
   .row {  
@@ -68,7 +66,7 @@
   }
 
   .control {
-    flex: 60%;
+    flex: 55%;
     background-color: #ffffff;
     border-radius: 10%;
     box-shadow: 0px 5px 8px;
