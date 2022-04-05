@@ -42,6 +42,13 @@
     clear:both;
   }
 
+  #divVidText {
+    border: 2px solid rgb(0, 255, 98);
+    padding: 10px;
+    border-radius: 25px;
+    text-align: center;
+  }
+
   .pad{
     width: 100%;
     padding: 5px 0px 5px 30px;
@@ -60,13 +67,13 @@
   }
 
   .control {
-    flex: 50%;
+    flex: 60%;
     background-color: #ffffff;
     /*padding: 20px;*/
   }
 
   .video {
-    flex: 50%;
+    flex: 40%;
     /*background-color: #f1f1f1;
     padding: 20px;*/
   }
