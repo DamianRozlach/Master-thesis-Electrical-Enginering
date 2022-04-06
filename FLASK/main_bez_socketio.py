@@ -4,8 +4,6 @@
 # main.py
 # import the necessary packages
 from flask import Flask, render_template, Response, request
-from flask_socketio import SocketIO, emit
-from flask_cors import CORS
 from camera import VideoCamera
 import time
 import threading
@@ -15,8 +13,6 @@ pi_camera = VideoCamera(flip=False) # flip pi camera if upside down.
 
 # App Globals (do not edit)
 app = Flask(__name__)
-CORS(app)
-socketio = SocketIO(app)
 
 @app.route('/')
 def index():
@@ -36,7 +32,7 @@ def video_feed():
 
 if __name__ == '__main__':
 
-    socketio.run(app, host="0.0.0.0", debug=True, use_reloader=False)
+    app.run(host='0.0.0.0', debug=False)
     
 
 
