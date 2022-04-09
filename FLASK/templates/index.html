@@ -31,7 +31,7 @@
   <div class="control marginDiv">
     <div id="divControlText" style="margin: 0px;"><h4 style="margin-left: 0px;margin-right: 0px;margin-top: 0px;margin-bottom: 8px;padding-bottom: 4px;padding-top: 4px;">Sterowanie</h4></div>
     <div id="divPanel" class="floatfix"> 
-      <div id="joystick" class="joystick_zone"></div>
+      control
     </div>
   </div>
   <div class="main video marginDiv" id="newpost">
@@ -55,51 +55,6 @@
     </div>
 
 </div> -->
-
-<script type="text/javascript">
-  var socket_status = io.connect('http://'+location.host+"/status");
-  var socket_control = io.connect('http://'+location.host+"/control");
-
-  $(document).ready(function(){
-      /* connected display */
-      setInterval(function(){
-          if(socket_status.connected){
-              $('#connex').html('<div class="led-box"><div class="led-blue"></div><div class="led-text">Connected</div></div>');
-          }else{
-              $('#connex').html('<div class="led-box"><div class="led-red"></div><div class="led-text">Not Connected</div></div>');
-          }
-      }, 1000);
-
-      $('#output').text("starting");
-
-      /******************************************
-        BUTTONS
-        *****************************************/
-      $(document).on('touchstart touchmove', '#button1', function(evt){
-          $('#output2').html("Button1");
-          socket_control.emit('control', {data:{"A":1}});
-          evt.preventDefault();
-      });
-      $(document).on('touchstart touchmove', '#button2', function(evt){
-          socket_control.emit('control', {data:{"B":1}});
-          $('#output2').html("Button2");
-          evt.preventDefault();
-      });
-
-      /******************************************
-        JOYSTICKS
-        *****************************************/
-      //socket_control.emit('control', {data:{"left":[(data.distance/options.size), data.angle.degree]}});
-      var test = new Joystick("joystick", 0, socket_control, "left");
-      var test2 = new Joystick("joystick2", 1, socket_control, "right");
-
-      window.oncontextmenu = function(evt){
-          evt.preventDefault();
-          evt.stopPropagation();
-          return false;
-      }
-  });
-</script>
 
 
     
