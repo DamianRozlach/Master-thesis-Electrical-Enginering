@@ -3,6 +3,7 @@
 #Desc: This web application serves a motion JPEG stream
 # main.py
 # import the necessary packages
+from pickle import TRUE
 from flask import Flask, render_template, Response, request
 from flask_socketio import SocketIO, emit
 from flask_cors import CORS
@@ -33,6 +34,27 @@ def gen(camera):
 def video_feed():
     return Response(gen(pi_camera),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
+
+@socketio.on('control', namespace='/control')
+def control(message):
+    data = message["data"]
+    if "left" in data.keys():
+        x = data["left"][0]
+        y = data["left"][1]
+        if TRUE: print("[Server] Left: ",x,",",y)
+        #linear.q.put(("left",x,y))
+    elif "right" in data.keys():
+        x = data["right"][0]
+        y = data["right"][1]
+        if TRUE: print("[Server] Right: ",x,",",y)
+        #servo.q.put(("right",x,y))
+        #servo2.q.put(("right",y,x))
+    elif "A" in data.keys():
+        if TRUE: print("[Server] A")
+        #binary.q.put(("A",1,0))
+    elif "B" in data.keys():
+        if True: print("[Server] B")
+        #binary2.q.put(("B",1,0))
 
 if __name__ == '__main__':
 
