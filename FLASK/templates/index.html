@@ -85,12 +85,15 @@ steering.onmousemove = function(e){
   var div = document.getElementById("rightPanel");
   var coordinates = "init"
   var rect = e.target.getBoundingClientRect();
+  var x = 0;
+  var y = 0;
   if (isClicked) {    
-    var x = e.clientX - rect.left;
-    var y = e.clientY - rect.top;
-    coordinates = "Coordinates:(" + x + ' ' + y + ")" +(rect.right - rect.left);
+    x, y = relCoors(rect,e.clientX,e.clientY);
+    coordinates = "Coordinates:(" + x + ' ' + y + ")" ;
     div.innerHTML = coordinates;
   } else {
+    x = 0;
+    y = 0;
     coordinates = "Coordinates:(0 0)";
     div.innerHTML = coordinates;
   }
@@ -112,6 +115,16 @@ button.onclick = function() {
         div.style.display = 'block';
     }
 };
+
+function relCoors(rect, x ,y) {
+  var aWidth = rect.right - rect.left;
+  var aHeight = rect.bottom - rect.top;
+  x = x - rect.left;
+  y= y - rect.top;
+  y = y * (200/aHeight) - 100;
+  x = x * (200/aWidth) - 100;
+  return x,y;
+}
    
 </script>
 
