@@ -93,10 +93,9 @@ steering.onmousemove = function(e){
   }
 }
 
-var bodyVar=document.getElementsByTagName("body");
-bodyVar.onmouseup = function (){
-  isClicked = false;
-}
+document.body.addEventListener('mouseup', function(){
+    isClicked = false;
+});
 
   
 var button = document.getElementById('button');
