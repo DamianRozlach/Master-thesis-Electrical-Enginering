@@ -65,8 +65,9 @@
   }
 
   #arrows{
-    height: fit-content;
     background-image: url("./static/media/arrows_png.png");
+    width: 60%;
+    height: 100%;
   }
 
   .pad{
