@@ -54,6 +54,7 @@
   #arrows{
     width: 60%;
     height: 100%;
+    border-radius: 50px;
   }
 
   .pad{
