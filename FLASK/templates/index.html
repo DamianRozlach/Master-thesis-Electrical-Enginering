@@ -99,13 +99,13 @@ steering.onmouseleave = function () {
   div.innerHTML = coordinates;
 }
 
-/*steering.onmousemove = function(event){
+steering.onmousemove = function(event){
  moveFunc(event);
-}*/
-
-steering.ontouchmove = function(event){
-  moveFunc(event);
 }
+
+/*steering.ontouchmove = function(event){
+  moveFunc(event);
+}*/
 
 document.body.addEventListener('mouseup', function(){
     isClicked = false;
