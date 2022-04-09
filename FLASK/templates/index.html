@@ -76,8 +76,9 @@ steering.onmousedown = function (){
   isClicked = true;
 }
 
-steering.ontouchstart = function (){
+steering.ontouchstart = function (event){
   isClicked = true;
+  moveFunc(event);
 }
 
 steering.onmouseup = function () {
@@ -86,6 +87,9 @@ steering.onmouseup = function () {
 
 steering.ontouchend = function () {
   isClicked = false;
+  div = document.getElementById("rightPanel");
+  coordinates = "Coordinates:(0 0)";
+  div.innerHTML = coordinates;
 }
 
 steering.onmouseleave = function () {
@@ -95,9 +99,9 @@ steering.onmouseleave = function () {
   div.innerHTML = coordinates;
 }
 
-steering.onmousemove = function(event){
+/*steering.onmousemove = function(event){
  moveFunc(event);
-}
+}*/
 
 steering.ontouchmove = function(event){
   moveFunc(event);
