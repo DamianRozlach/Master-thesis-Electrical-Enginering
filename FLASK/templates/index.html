@@ -33,7 +33,7 @@
       <div id="arrows">
         <img class="arrows" src="static/media/arrows_png.png"width=80% height=80%> 
       </div>
-      <div id="xxx"></div>
+      <div id="rightPanel"> Koordynaty </div>
     </div>
   </div>
   <div class="main video marginDiv" id="newpost">
@@ -62,7 +62,33 @@
     
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
-<!--<script type="text/javascript">
+<script type="text/javascript">
+
+var isClicked = false;
+var steering=document.getElementById('arrows');
+
+steering.onmousedown = function (){
+  isClicked = true;
+}
+
+steering.onmouseup = function () {
+  isClicked = false;
+}
+
+steering.onmousemove = function(e){
+  var div = document.getElementById("rightPanel");
+  var coordinates = "init"
+  if (isClicked) {
+    var x = e.clientX;
+    var y = e.clientY;
+    coordinates = "Coordinates:(" + x + ' ' + y + ")";
+    div.innerHTML = coordinates;
+  } else {
+    coordinates = "Coordinates:(0 0)";
+    div.innerHTML = coordinates;
+  }
+}
+
   
 var button = document.getElementById('button');
 
@@ -76,7 +102,7 @@ button.onclick = function() {
     }
 };
    
-</script>-->
+</script>
 
 </body>
 </html>
