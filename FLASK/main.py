@@ -40,6 +40,7 @@ def index():
 def gen(camera):
     #get camera frame
     while True:
+        time.sleep(0.5)
         frame = camera.get_frame()
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
@@ -48,7 +49,6 @@ def gen(camera):
 
 @app.route('/video_feed')
 def video_feed():
-    time.sleep(1)
     return Response(gen(pi_camera),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
