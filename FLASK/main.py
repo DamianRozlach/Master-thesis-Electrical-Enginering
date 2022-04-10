@@ -7,11 +7,14 @@ from pickle import TRUE
 from flask import Flask, render_template, Response, request
 from flask_socketio import SocketIO, emit
 from flask_cors import CORS
+from engineio.payload import Payload
 from camera import VideoCamera
 from vehicle import vehicleClass
 import time
 import threading
 import os
+
+Payload.max_decode_packets = 50
 
 isDev = TRUE
 pi_camera = VideoCamera(flip=False) # flip pi camera if upside down.
