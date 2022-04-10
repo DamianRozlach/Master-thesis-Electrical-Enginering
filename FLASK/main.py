@@ -41,7 +41,7 @@ def gen(camera):
 def index():
     global thread
     if thread is None:
-        thread = Thread(target=gen,arg=(pi_camera,))
+        thread = Thread(gen,pi_camera)
         thread.start()
     return render_template('index.html') #you can customze index.html here
 
