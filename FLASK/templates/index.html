@@ -34,8 +34,8 @@
         <div class="floatfix">
           <div><h2 style="text-align: center;">Tryb autonomiczny</h2></div>
           <div>
-            <div id="buttonOn" class="button"> ON </div>
-            <div id="buttonOff" class="button"> OFF </div>
+            <div id="buttonOn" class="button" style="opacity: 1;"> ON </div>
+            <div id="buttonOff" class="button" style="opacity: 0.5;"> OFF </div>
           </div>
         </div>
         <div class="floatfix">
@@ -70,7 +70,11 @@ var isClicked = false;
 var steering=document.getElementById('arrows');
 var div;
 var rect;
+
+//control variables
 var steeringData = {};
+var servoHor=0;
+var servoVer=0;
 
 //buttons
 var buttonOn = document.getElementById('buttonOn');
@@ -180,10 +184,14 @@ function moveFunc(e) {
 
 buttonOn.onclick = function(){
   socket_control.emit('control',{data:{"On":1}});
+  buttonOn.style.opacity = 0.5;
+  buttonOff.style.opacity = 1;
 }
 
 buttonOff.onclick = function(){
   socket_control.emit('control',{data:{"Off":1}});
+  buttonOn.style.opacity = 1;
+  buttonOff.style.opacity = 0.5;
 }
 
 buttonUp.onclick = function(){

@@ -53,8 +53,10 @@ def control(message):
         #linear.q.put(("left",x,y))
     elif "On" in data.keys():
         print("received a on message")
+        tank.modeAutonomous = True
     elif "Off" in data.keys():
         print("received a off message")
+        tank.modeAutonomous = False
     elif "Up" in data.keys():
         print("received a up message")
     elif "Down" in data.keys():
