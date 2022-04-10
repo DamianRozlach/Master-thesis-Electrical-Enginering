@@ -1,4 +1,5 @@
 
+from ast import arg
 from pickle import TRUE
 from flask import Flask, render_template, Response, request
 from flask_socketio import SocketIO, emit
@@ -8,6 +9,7 @@ from camera import VideoCamera
 from vehicle import vehicleClass
 import time
 import threading
+from threading import Thread
 import os
 import RPi.GPIO as GPIO
 
@@ -26,6 +28,7 @@ tank = vehicleClass()
 app = Flask(__name__)
 #CORS(app)
 socketio = SocketIO(app)
+thread = none
 
 def gen(camera):
     #get camera frame
@@ -36,11 +39,15 @@ def gen(camera):
 
 @app.route('/')
 def index():
+    global thread
+    if thread is None:
+        thread = Thread(target=gen,arg=(pi_camera,))
+        thread.start()
     return render_template('index.html') #you can customze index.html here
 
 
 
-@app.route('/video_feed')
+@app.route('/video_feed')    
 def video_feed():
     return Response(gen(pi_camera),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
