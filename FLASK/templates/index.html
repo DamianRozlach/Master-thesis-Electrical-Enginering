@@ -179,7 +179,7 @@ function moveFunc(e) {
 //buttons control
 
 buttonOn.onclick = function(){
-
+  socket_control.emit('my event', {data: 'ButtonUp'});
 }
 
 window.addEventListener("contextmenu", function(e) { e.preventDefault(); })
