@@ -135,14 +135,14 @@ steering.ontouchmove = function(event){
   moveFunc(event);
 }
 
-document.body.addEventListener('mouseup', function(){
+/*document.body.addEventListener('mouseup', function(){
     isClicked = false;
     x = 0;
     y = 0;
     steeringData[0] = x;
     steeringData[1] = y;
     socket_control.emit('control', {data:steeringData});
-});
+});*/
 
 function relCoors(rect, x ,y) {
   var aWidth = rect.right - rect.left;
