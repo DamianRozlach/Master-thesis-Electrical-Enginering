@@ -39,16 +39,18 @@ def gen(camera):
 
 @app.route('/')
 def index():
-    global thread
-    if thread is None:
-        thread = Thread(gen,pi_camera)
-        thread.start()
     return render_template('index.html') #you can customze index.html here
 
 
 
-@app.route('/video_feed')    
+@app.route('/video_feed')
 def video_feed():
+    global thread
+    if thread is None:
+        thread = Thread(video_feed_f)
+        thread.start()
+
+def video_feed_f():
     return Response(gen(pi_camera),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
