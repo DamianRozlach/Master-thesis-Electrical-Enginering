@@ -67,9 +67,12 @@
 var isClicked = false;
 var steering=document.getElementById('arrows');
 var div;
-var coordinates;
 var rect;
+var steeringData = {};
 
+var socket_control = io.connect('http://'+location.host+"/control");
+
+//Steering control
 steering.onmousedown = function (){
   isClicked = true;
 }
@@ -81,20 +84,29 @@ steering.ontouchstart = function (event){
 
 steering.onmouseup = function () {
   isClicked = false;
+  x = 0;
+  y = 0;
+  steeringData[0] = x;
+  steeringData[1] = y;
+  socket_control.emit('control', {data:steeringData});
 }
 
 steering.ontouchend = function () {
   isClicked = false;
-  div = document.getElementById("rightPanel");
-  coordinates = "Coordinates:(0 0)";
-  div.innerHTML = coordinates;
+  x = 0;
+  y = 0;
+  steeringData[0] = x;
+  steeringData[1] = y;
+  socket_control.emit('control', {data:steeringData});
 }
 
 steering.onmouseleave = function () {
   isClicked = false;
-  div = document.getElementById("rightPanel");
-  coordinates = "Coordinates:(0 0)";
-  div.innerHTML = coordinates;
+  x = 0;
+  y = 0;
+  steeringData[0] = x;
+  steeringData[1] = y;
+  socket_control.emit('control', {data:steeringData});
 }
 
 steering.onmousemove = function(event){
@@ -107,6 +119,11 @@ steering.ontouchmove = function(event){
 
 document.body.addEventListener('mouseup', function(){
     isClicked = false;
+    x = 0;
+    y = 0;
+    steeringData[0] = x;
+    steeringData[1] = y;
+    socket_control.emit('control', {data:steeringData});
 });
 
 function relCoors(rect, x ,y) {
@@ -120,7 +137,6 @@ function relCoors(rect, x ,y) {
 }
 
 function moveFunc(e) {
-  div = document.getElementById("rightPanel");
   rect = e.target.getBoundingClientRect();
   var x = 0;
   var y = 0;
@@ -134,14 +150,16 @@ function moveFunc(e) {
       var data = relCoors(rect,event.touches[0].clientX,event.touches[0].clientY);
       x = data[0];
       y = data[1];
-    }    
-    coordinates = "Coordinates:(" + x + ' ' + y + ")" ;
-    div.innerHTML = coordinates;
+    }
+    steeringData[0] = x;
+    steeringData[1] = y;
+    socket_control.emit('control', {data:steeringData});
   } else {
     x = 0;
     y = 0;
-    coordinates = "Coordinates:(0 0)";
-    div.innerHTML = coordinates;
+    steeringData[0] = x;
+    steeringData[1] = y;
+    socket_control.emit('control', {data:steeringData});
   }
 }
 

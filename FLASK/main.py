@@ -16,6 +16,8 @@ import os
 isDev = TRUE
 pi_camera = VideoCamera(flip=False) # flip pi camera if upside down.
 
+tank = vehicleClass()
+
 # App Globals (do not edit)
 app = Flask(__name__)
 CORS(app)
@@ -40,10 +42,10 @@ def video_feed():
 @socketio.on('control', namespace='/control')
 def control(message):
     data = message["data"]
-    if "left" in data.keys():
-        x = data["left"][0]
-        y = data["left"][1]
-        if TRUE: print("[Server] Left: ",x,",",y)
+    if "steeringData" in data.keys():
+        tank.x_axis = data["steeringData"][0]
+        tank.y_axis = data["steeringData"][1]
+        if isDev: print(tank)
         #linear.q.put(("left",x,y))
     elif "right" in data.keys():
         x = data["right"][0]
