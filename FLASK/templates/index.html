@@ -31,7 +31,6 @@
     <div id="divControlText" style="margin: 0px;"><h4 style="margin-left: 0px;margin-right: 0px;margin-top: 0px;margin-bottom: 8px;padding-bottom: 4px;padding-top: 4px;">Sterowanie</h4></div>
     <div id="divPanel" class="floatfix"> 
       <div id="arrows">
-        <div class="shield"></div>
         <img draggable="false" class="arrows unselectable" src="static/media/arrows_png.png"width=80% height=80%> 
       </div>
       <div id="rightPanel"> Koordynaty </div>
@@ -160,6 +159,8 @@ function moveFunc(e) {
     div.innerHTML = coordinates;
   }
 }
+
+window.addEventListener("contextmenu", function(e) { e.preventDefault(); })
    
 </script>
 
