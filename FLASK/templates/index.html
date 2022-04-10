@@ -104,8 +104,7 @@ steering.onmouseup = function () {
   isClicked = false;
   x = 0;
   y = 0;
-  steeringData[0] = x;
-  steeringData[1] = y;
+  steeringData = {"steeringData":{"X":x,"Y":y}};
   socket_control.emit('control', {data:steeringData});
 }
 
@@ -113,8 +112,7 @@ steering.ontouchend = function () {
   isClicked = false;
   x = 0;
   y = 0;
-  steeringData[0] = x;
-  steeringData[1] = y;
+  steeringData = {"steeringData":{"X":x,"Y":y}};
   socket_control.emit('control', {data:steeringData});
 }
 
@@ -122,8 +120,7 @@ steering.onmouseleave = function () {
   isClicked = false;
   x = 0;
   y = 0;
-  steeringData[0] = x;
-  steeringData[1] = y;
+  steeringData = {"steeringData":{"X":x,"Y":y}};
   socket_control.emit('control', {data:steeringData});
 }
 
@@ -169,22 +166,20 @@ function moveFunc(e) {
       x = data[0];
       y = data[1];
     }
-    steeringData[0] = x;
-    steeringData[1] = y;
+    steeringData = {"steeringData":{"X":x,"Y":y}};
     socket_control.emit('control', {data:steeringData});
   } else {
     x = 0;
     y = 0;
-    steeringData[0] = x;
-    steeringData[1] = y;
-    socket_control.emit('control', {data:steeringData});
+    steeringData = {"steeringData":{"X":x,"Y":y}};
+    //socket_control.emit('control', {data:steeringData});
   }
 }
 
 //buttons control
 
 buttonOn.onclick = function(){
-  socket_control.emit('control', {data:{"On":1}});
+  socket_control.emit('control',{data:{"On":1}});
 }
 
 window.addEventListener("contextmenu", function(e) { e.preventDefault(); })
