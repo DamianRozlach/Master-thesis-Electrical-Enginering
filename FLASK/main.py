@@ -45,6 +45,7 @@ def video_feed():
 @socketio.on('control', namespace='/control')
 def control(message):
     print("received a control message")
+    print(message)
     data = message["data"]
     if "steeringData" in data.keys():
         print("received a steering mesage")
@@ -66,9 +67,6 @@ def control(message):
         if True: print("[Server] B")
         #binary2.q.put(("B",1,0))
 
-@socketio.on('message')
-def handle_message(data):
-    print('received message: ' + data)
 
 @socketio.on_error_default
 def default_error_handler(e):
