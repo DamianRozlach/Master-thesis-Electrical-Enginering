@@ -42,6 +42,7 @@ def video_feed():
 @socketio.on('control', namespace='/control')
 def control(message):
     data = message["data"]
+    print(data)
     if "steeringData" in data.keys():
         tank.x_axis = data["steeringData"][0]
         tank.y_axis = data["steeringData"][1]
