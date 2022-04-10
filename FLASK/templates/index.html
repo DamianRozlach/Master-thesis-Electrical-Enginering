@@ -168,7 +168,6 @@ function moveFunc(e) {
     }
     steeringData = {"steeringData":{"X":x,"Y":y}};
     socket_control.emit('control', {data:steeringData});
-    e.preventDefault();
   } else {
     x = 0;
     y = 0;

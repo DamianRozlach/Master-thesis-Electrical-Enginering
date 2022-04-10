@@ -44,13 +44,13 @@ def video_feed():
 
 @socketio.on('control', namespace='/control')
 def control(message):
-    print("received a control message")
-    print(message)
     data = message["data"]
     if "steeringData" in data.keys():
         print("received a steering mesage")
-        tank.x_axis = data[0]
-        tank.y_axis = data[1]
+        tank.x_axis = data["steeringData"]["X"]
+        tank.y_axis = data["steeringData"]["Y"]
+        print(tank.x_axis)
+        print(tank.y_axis)
         if isDev: print(tank)
         #linear.q.put(("left",x,y))
     elif "On" in data.keys():
@@ -70,10 +70,11 @@ def control(message):
 
 @socketio.on_error_default
 def default_error_handler(e):
-    print("======================= ERROR =======================")
-    print(request.event["message"])
-    print(request.event["args"])
-    print(e)
+    pass
+    #print("======================= ERROR =======================")
+    #print(request.event["message"])
+    #print(request.event["args"])
+    #print(e)
 
 if __name__ == '__main__':
 
