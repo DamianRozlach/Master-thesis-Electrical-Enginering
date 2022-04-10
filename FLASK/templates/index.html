@@ -7,10 +7,7 @@
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
 
 </head>
-<!--
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
--->
+
 
 <body>
 
@@ -33,34 +30,24 @@
       <div id="arrows">
         <img draggable="false" class="arrows unselectable" src="static/media/arrows_png.png"width=80% height=80%> 
       </div>
-      <div id="rightPanel"> Koordynaty </div>
+      <div id="rightPanel"> 
+        <div class="floatfix">
+          <div><h4 style="text-align: center;">Tryb autonomiczny</h4></div>
+          <div>
+            <div id="button1" class="button"> ON </div>
+            <div id="button2" class="button"> OFF </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <div class="main video marginDiv" id="newpost">
     <div id="divVidText" style="margin: 0px;"><h4 style="margin-left: 0px;margin-right: 0px;margin-top: 0px;margin-bottom: 8px;padding-bottom: 4px;padding-top: 4px;">Obraz z kamery</h4></div>
     <img  class="camera" src="{{ url_for('video_feed') }}">
-    <!--<img  class="camera" style="width: 100%; height:100%; background-attachment: relative;" id="bg" class="center" src="{{ url_for('video_feed') }}">-->
-    <!--<img  class="camera-bg" style="width: 100%; height:80%; background-attachment: fixed;" id="bg" class="center" src="https://www.psdbox.com/wp-content/uploads/2011/01/security-camera-photoshop-effect.jpg">-->
-     
   </div>
   <br>
   <br>
 </div>
-
-
-<!-- <div class="navbar">
-
-    <div class="ignoreCall">
-          <a id=decline class="but_def">
-              <button id="button"> 
-                  <i style="background: red; color: white;" class="fa fa-times fa-2x" aria-hidden="true"></i>
-              </button>
-         </a>       
-    </div>
-
-</div> -->
-
-
     
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
@@ -110,19 +97,6 @@ steering.ontouchmove = function(event){
 document.body.addEventListener('mouseup', function(){
     isClicked = false;
 });
-
-  
-var button = document.getElementById('button');
-
-button.onclick = function() {
-    var div = document.getElementById('newpost');
-    if (div.style.display !== 'none') {
-        div.style.display = 'none';
-    }
-    else {
-        div.style.display = 'block';
-    }
-};
 
 function relCoors(rect, x ,y) {
   var aWidth = rect.right - rect.left;
