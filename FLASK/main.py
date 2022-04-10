@@ -48,7 +48,7 @@ def gen(camera):
 
 @app.route('/video_feed')
 def video_feed():
-    time.sleep(0.1)
+    time.sleep(1)
     return Response(gen(pi_camera),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
