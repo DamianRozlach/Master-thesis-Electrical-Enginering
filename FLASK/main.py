@@ -6,7 +6,7 @@
 from pickle import TRUE
 from flask import Flask, render_template, Response, request
 from flask_socketio import SocketIO, emit
-from flask_cors import CORS
+#from flask_cors import CORS
 from engineio.payload import Payload
 from camera import VideoCamera
 from vehicle import vehicleClass
@@ -23,7 +23,7 @@ tank = vehicleClass()
 
 # App Globals (do not edit)
 app = Flask(__name__)
-CORS(app)
+#CORS(app)
 socketio = SocketIO(app)
 
 @app.route('/')
