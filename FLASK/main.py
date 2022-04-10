@@ -45,8 +45,8 @@ def control(message):
     data = message["data"]
     print(data)
     if "steeringData" in data.keys():
-        tank.x_axis = data["steeringData"][0]
-        tank.y_axis = data["steeringData"][1]
+        tank.x_axis = data[0]
+        tank.y_axis = data[1]
         if isDev: print(tank)
         #linear.q.put(("left",x,y))
     elif "right" in data.keys():
