@@ -30,6 +30,8 @@ app = Flask(__name__)
 socketio = SocketIO(app)
 thread = None
 
+
+
 def gen(camera):
     #get camera frame
     while True:
@@ -39,18 +41,15 @@ def gen(camera):
 
 @app.route('/')
 def index():
-    global thread
-    if thread is None:
-        thread = Thread(video_thread)
-        thread.start()
     return render_template('index.html') #you can customze index.html here
 
 
-def video_thread():
-    @app.route('/video_feed')
-    def video_feed_f():
-        return Response(gen(pi_camera),
-                        mimetype='multipart/x-mixed-replace; boundary=frame')
+
+@app.route('/video_feed')
+def video_feed_f():
+    time.sleep(0.1)
+    return Response(gen(pi_camera),
+                    mimetype='multipart/x-mixed-replace; boundary=frame')
 
 @socketio.on('control', namespace='/control')
 def control(message):
