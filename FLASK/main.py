@@ -74,7 +74,7 @@ def control(message):
         print("received a Vert message")
         tank.servo1_pos = data["Vert"]
     elif "Horr" in data.keys():
-        print("received a left message")
+        print("received a Horr message")
         tank.servo2_pos = data["Horr"]
     elif "info" in data.keys():
         print(data["info"])
