@@ -97,9 +97,8 @@
     border-radius: 8px;
     transition-duration: 0.4s;
     padding: 10px 30px;
+    width: 45%;
     font-size: 24px;
-    margin-left: 20px;
-    margin-right: 20px;
     margin-bottom: 8 px;
   }
 
@@ -117,26 +116,22 @@
 
   #buttonup{
     float: left;
-    margin-left: 40px;
     margin-bottom: 20px;
 
   }
 
   #buttondown{
     float: right;
-    margin-right: 40px;
     margin-bottom: 20px;
   }
 
   #buttonleft{
     float: left;
-    margin-left: 40px;
     margin-bottom: 20px;
   }
 
   #buttonright{
     float: right;
-    margin-right: 40px;
     margin-bottom: 20px;
   }
 
