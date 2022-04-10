@@ -25,6 +25,7 @@ socketio = SocketIO(app)
 
 @app.route('/')
 def index():
+    print("hello i am connected")
     return render_template('index.html') #you can customze index.html here
 
 def gen(camera):
@@ -41,6 +42,7 @@ def video_feed():
 
 @socketio.on('control', namespace='/control')
 def control(message):
+    print(message)
     data = message["data"]
     print(data)
     if "steeringData" in data.keys():
