@@ -78,9 +78,11 @@ var buttonDown = document.getElementById('buttondown');
 var buttonLeft = document.getElementById('buttonleft');
 var buttonRight = document.getElementById('buttonright');
 
+//socket
+
 var socket_control = io.connect('http://'+location.host+"/control");
 socket_control.on('connect', function() {
-        socket.emit('my event', {data: 'I\'m connected!'});
+        socket_control.emit('my event', {data: 'I\'m connected!'});
     });
 
 //Steering control
