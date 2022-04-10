@@ -44,6 +44,7 @@ def control(message):
     print("received a control message")
     data = message["data"]
     if "steeringData" in data.keys():
+        print("received a steering mesage")
         tank.x_axis = data[0]
         tank.y_axis = data[1]
         if isDev: print(tank)

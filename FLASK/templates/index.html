@@ -84,7 +84,7 @@ var buttonRight = document.getElementById('buttonright');
 
 var socket_control = io.connect('http://'+location.host+"/control");
 socket_control.on('connect', function() {
-        socket_control.emit('my event', {data: 'Socket control is connected'});
+        socket_control.emit('ccontrol', {data: 'Socket control is connected'});
 });
 
 
@@ -184,7 +184,7 @@ function moveFunc(e) {
 //buttons control
 
 buttonOn.onclick = function(){
-  socket_control.emit('my event', {data: 'ButtonUp'});
+  socket_control.emit('control', {data: 'ButtonUp'});
 }
 
 window.addEventListener("contextmenu", function(e) { e.preventDefault(); })
