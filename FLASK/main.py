@@ -25,7 +25,6 @@ socketio = SocketIO(app)
 
 @app.route('/')
 def index():
-    print("hello i am connected")
     return render_template('index.html') #you can customze index.html here
 
 def gen(camera):
@@ -62,6 +61,10 @@ def control(message):
     elif "B" in data.keys():
         if True: print("[Server] B")
         #binary2.q.put(("B",1,0))
+
+@socketio.on('message')
+def handle_message(data):
+    print('received message: ' + data)
 
 if __name__ == '__main__':
 

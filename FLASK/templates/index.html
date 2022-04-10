@@ -34,8 +34,8 @@
         <div class="floatfix">
           <div><h2 style="text-align: center;">Tryb autonomiczny</h2></div>
           <div>
-            <div id="button1" class="button"> ON </div>
-            <div id="button2" class="button"> OFF </div>
+            <div id="buttonOn" class="button"> ON </div>
+            <div id="buttonOff" class="button"> OFF </div>
           </div>
         </div>
         <div class="floatfix">
@@ -70,7 +70,18 @@ var div;
 var rect;
 var steeringData = {};
 
+//buttons
+var buttonOn = document.getElementById('buttonOn');
+var buttonOff = document.getElementById('buttonOff');
+var buttonUp = document.getElementById('buttonup');
+var buttonDown = document.getElementById('buttondown');
+var buttonLeft = document.getElementById('buttonleft');
+var buttonRight = document.getElementById('buttonright');
+
 var socket_control = io.connect('http://'+location.host+"/control");
+socket_control.on('connect', function() {
+        socket.emit('my event', {data: 'I\'m connected!'});
+    });
 
 //Steering control
 steering.onmousedown = function (){
@@ -161,6 +172,12 @@ function moveFunc(e) {
     steeringData[1] = y;
     socket_control.emit('control', {data:steeringData});
   }
+}
+
+//buttons control
+
+buttonOn.onclick = function(){
+
 }
 
 window.addEventListener("contextmenu", function(e) { e.preventDefault(); })
