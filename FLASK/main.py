@@ -14,7 +14,7 @@ import time
 import threading
 import os
 
-Payload.max_decode_packets = 50
+Payload.max_decode_packets = 500
 
 isDev = TRUE
 pi_camera = VideoCamera(flip=False) # flip pi camera if upside down.
