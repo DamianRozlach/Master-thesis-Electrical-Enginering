@@ -90,7 +90,7 @@ def default_error_handler(e):
 
 if __name__ == '__main__':
 
-    socketio.run(app, host="0.0.0.0", debug=True, use_reloader=False)
+    socketio.run(app, host="0.0.0.0", debug=True, use_reloader=False,async_mode='eventlet'))
     
 
 
