@@ -28,7 +28,7 @@ tank = vehicleClass()
 app = Flask(__name__)
 #CORS(app)
 socketio = SocketIO(app)
-thread = none
+thread = None
 
 def gen(camera):
     #get camera frame
