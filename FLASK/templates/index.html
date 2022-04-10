@@ -182,6 +182,26 @@ buttonOn.onclick = function(){
   socket_control.emit('control',{data:{"On":1}});
 }
 
+buttonOff.onclick = function(){
+  socket_control.emit('control',{data:{"Off":1}});
+}
+
+buttonUp.onclick = function(){
+  socket_control.emit('control',{data:{"Up":1}});
+}
+
+buttonDown.onclick = function(){
+  socket_control.emit('control',{data:{"Down":1}});
+}
+
+buttonLeft.onclick = function(){
+  socket_control.emit('control',{data:{"Left":1}});
+}
+
+buttonRight.onclick = function(){
+  socket_control.emit('control',{data:{"Right":1}});
+}
+
 window.addEventListener("contextmenu", function(e) { e.preventDefault(); })
    
 </script>
