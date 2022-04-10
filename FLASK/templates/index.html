@@ -184,7 +184,7 @@ function moveFunc(e) {
 //buttons control
 
 buttonOn.onclick = function(){
-  socket_control.emit('control', {data: 'ButtonUp'});
+  socket_control.emit('control', {data:{"On":1}});
 }
 
 window.addEventListener("contextmenu", function(e) { e.preventDefault(); })

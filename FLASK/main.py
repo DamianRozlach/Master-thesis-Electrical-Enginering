@@ -49,7 +49,8 @@ def control(message):
         tank.y_axis = data[1]
         if isDev: print(tank)
         #linear.q.put(("left",x,y))
-    elif "right" in data.keys():
+    elif "On" in data.keys():
+        print("received a on message")
         x = data["right"][0]
         y = data["right"][1]
         if TRUE: print("[Server] Right: ",x,",",y)
