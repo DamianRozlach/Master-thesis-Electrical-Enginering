@@ -199,6 +199,12 @@ buttonUp.onclick = function(){
   if (servoVer > 10) {
     servoVer = 10;
   }
+  if(servoVer == 10){
+    buttonUp.style.opacity = 0.5;
+  }
+  else {
+    buttonUp.style.opacity = 1;
+  }
   socket_control.emit('control',{data:{"Vert":servoVer}});
 }
 
@@ -206,6 +212,12 @@ buttonDown.onclick = function(){
   servoVer -= 1;
   if (servoVer < -10) {
     servoVer = -10;
+  }
+  if(servoVer == -10){
+    buttonDown.style.opacity = 0.5;
+  }
+  else {
+    buttonDown.style.opacity = 1;
   }
   socket_control.emit('control',{data:{"Vert":servoVer}});
 }
@@ -215,7 +227,13 @@ buttonLeft.onclick = function(){
   if (servoHor < -10) {
     servoHor = -10;
   }
-  socket_control.emit('control',{data:{"Vert":servoHor}});
+  if(servoHor == -10){
+    buttonLeft.style.opacity = 0.5;
+  }
+  else {
+    buttonLeft.style.opacity = 1;
+  }
+  socket_control.emit('control',{data:{"Horr":servoHor}});
 }
 
 buttonRight.onclick = function(){
@@ -223,7 +241,13 @@ buttonRight.onclick = function(){
   if (servoHor > 10) {
     servoHor = 10;
   }
-  socket_control.emit('control',{data:{"Vert":servoHor}});
+  if(servoHorr == 10){
+    buttonRight.style.opacity = 0.5;
+  }
+  else {
+    buttonRight.style.opacity = 1;
+  }
+  socket_control.emit('control',{data:{"Horr":servoHor}});
 }
 
 window.addEventListener("contextmenu", function(e) { e.preventDefault(); })
