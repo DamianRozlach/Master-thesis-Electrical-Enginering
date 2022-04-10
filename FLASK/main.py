@@ -1,8 +1,4 @@
-#Modified by smartbuilds.io
-#Date: 27.09.20
-#Desc: This web application serves a motion JPEG stream
-# main.py
-# import the necessary packages
+
 from pickle import TRUE
 from flask import Flask, render_template, Response, request
 from flask_socketio import SocketIO, emit
@@ -13,6 +9,10 @@ from vehicle import vehicleClass
 import time
 import threading
 import os
+import RPi.GPIO as GPIO
+
+GPIO.setup(40,GPIO.OUT)
+GPIO.output(40,GPIO.LOW)
 
 Payload.max_decode_packets = 500
 
@@ -54,15 +54,19 @@ def control(message):
     elif "On" in data.keys():
         print("received a on message")
         tank.modeAutonomous = True
+        GPIO.output(40,GPIO.HIGH)
     elif "Off" in data.keys():
         print("received a off message")
         tank.modeAutonomous = False
+        GPIO.output(40,GPIO.LOW)
     elif "Vert" in data.keys():
         print("received a Vert message")
         tank.servo1_pos = data["Vert"]
     elif "Horr" in data.keys():
         print("received a left message")
         tank.servo2_pos = data["Horr"]
+    elif "info" in data.keys():
+        print(data["info"])
 
 
 
