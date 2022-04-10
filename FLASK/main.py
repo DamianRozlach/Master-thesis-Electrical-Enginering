@@ -70,9 +70,10 @@ def control(message):
 
 @socketio.on_error_default
 def default_error_handler(e):
-    print("======================= ERROR")
+    print("======================= ERROR =======================")
     print(request.event["message"])
     print(request.event["args"])
+    print(e)
 
 if __name__ == '__main__':
 

@@ -39,7 +39,7 @@
           </div>
         </div>
         <div class="floatfix">
-          <div><h2 style="text-align: center;">Camera position</h2></div>
+          <div><h2 style="text-align: center;">Pozycja kamery</h2></div>
           <div>
             <div id="buttonup" class="button"> <i class="arrow up"></i> </div>
             <div id="buttondown" class="button"> <i class="arrow down"></i> </div>
@@ -168,6 +168,7 @@ function moveFunc(e) {
     }
     steeringData = {"steeringData":{"X":x,"Y":y}};
     socket_control.emit('control', {data:steeringData});
+    e.preventDefault();
   } else {
     x = 0;
     y = 0;
