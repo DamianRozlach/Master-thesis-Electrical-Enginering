@@ -57,14 +57,13 @@ def control(message):
     elif "Off" in data.keys():
         print("received a off message")
         tank.modeAutonomous = False
-    elif "Up" in data.keys():
-        print("received a up message")
-    elif "Down" in data.keys():
-        print("received a down message")
-    elif "Left" in data.keys():
+    elif "Vert" in data.keys():
+        print("received a Vert message")
+        tank.servo1_pos = data["Vert"]
+    elif "Horr" in data.keys():
         print("received a left message")
-    elif "Right" in data.keys():
-        print("received a right message")
+        tank.servo2_pos = data["Horr"]
+
 
 
 

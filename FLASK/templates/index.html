@@ -195,19 +195,35 @@ buttonOff.onclick = function(){
 }
 
 buttonUp.onclick = function(){
-  socket_control.emit('control',{data:{"Up":1}});
+  servoVer += 1;
+  if (servoVer > 10) {
+    servoVer = 10;
+  }
+  socket_control.emit('control',{data:{"Vert":servoVer}});
 }
 
 buttonDown.onclick = function(){
-  socket_control.emit('control',{data:{"Down":1}});
+  servoVer -= 1;
+  if (servoVer < -10) {
+    servoVer = -10;
+  }
+  socket_control.emit('control',{data:{"Vert":servoVer}});
 }
 
 buttonLeft.onclick = function(){
-  socket_control.emit('control',{data:{"Left":1}});
+  servoHor -= 1;
+  if (servoHor < -10) {
+    servoHor = -10;
+  }
+  socket_control.emit('control',{data:{"Vert":servoHor}});
 }
 
 buttonRight.onclick = function(){
-  socket_control.emit('control',{data:{"Right":1}});
+  servoHor += 1;
+  if (servoHor > 10) {
+    servoHor = 10;
+  }
+  socket_control.emit('control',{data:{"Vert":servoHor}});
 }
 
 window.addEventListener("contextmenu", function(e) { e.preventDefault(); })
