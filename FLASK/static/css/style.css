@@ -98,6 +98,9 @@
     transition-duration: 0.4s;
     padding: 10px 30px;
     font-size: 24px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 8 px;
   }
 
   .button:hover{
