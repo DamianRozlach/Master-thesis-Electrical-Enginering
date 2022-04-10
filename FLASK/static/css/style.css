@@ -118,30 +118,26 @@
   #buttonup{
     float: left;
     margin-left: 40px;
-    margin-right: 40px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 
   }
 
   #buttondown{
     float: right;
-    margin-left: 40px;
     margin-right: 40px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
   }
 
   #buttonleft{
     float: left;
     margin-left: 40px;
-    margin-right: 40px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
   }
 
   #buttonright{
     float: right;
-    margin-left: 40px;
     margin-right: 40px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
   }
 
 /*  .shield {
