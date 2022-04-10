@@ -28,9 +28,14 @@ tank = vehicleClass()
 app = Flask(__name__)
 #CORS(app)
 socketio = SocketIO(app)
-thread = None
 
 
+
+
+
+@app.route('/')
+def index():
+    return render_template('index.html') #you can customze index.html here
 
 def gen(camera):
     #get camera frame
@@ -39,14 +44,10 @@ def gen(camera):
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
 
-@app.route('/')
-def index():
-    return render_template('index.html') #you can customze index.html here
-
 
 
 @app.route('/video_feed')
-def video_feed_f():
+def video_feed():
     time.sleep(0.1)
     return Response(gen(pi_camera),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
