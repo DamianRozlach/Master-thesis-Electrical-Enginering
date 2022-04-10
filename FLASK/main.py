@@ -8,10 +8,12 @@ from flask import Flask, render_template, Response, request
 from flask_socketio import SocketIO, emit
 from flask_cors import CORS
 from camera import VideoCamera
+from vehicle import vehicleClass
 import time
 import threading
 import os
 
+isDev = TRUE
 pi_camera = VideoCamera(flip=False) # flip pi camera if upside down.
 
 # App Globals (do not edit)
