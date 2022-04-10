@@ -101,6 +101,7 @@
     font-size: 24px;
     margin-bottom: 8 px;
     box-sizing: border-box;
+    text-align: center;
   }
 
   .button:hover{
