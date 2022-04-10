@@ -43,7 +43,6 @@ def video_feed():
 def control(message):
     print("received a control message")
     data = message["data"]
-    print(data)
     if "steeringData" in data.keys():
         tank.x_axis = data[0]
         tank.y_axis = data[1]
