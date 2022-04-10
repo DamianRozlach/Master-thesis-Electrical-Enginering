@@ -12,6 +12,7 @@ import threading
 from threading import Thread
 import os
 import RPi.GPIO as GPIO
+import eventlet
 
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(40,GPIO.OUT)
@@ -40,7 +41,7 @@ def index():
 def gen(camera):
     #get camera frame
     while True:
-        time.sleep(0.5)
+        eventlet.sleep(0.5)
         frame = camera.get_frame()
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
@@ -90,7 +91,7 @@ def default_error_handler(e):
 
 if __name__ == '__main__':
 
-    socketio.run(app, host="0.0.0.0", debug=True, use_reloader=False,async_mode='eventlet')
+    socketio.run(app, host="0.0.0.0", debug=True, use_reloader=False)
     
 
 
