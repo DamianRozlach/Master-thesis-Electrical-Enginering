@@ -23,7 +23,7 @@ Payload.max_decode_packets = 500
 isDev = TRUE
 pi_camera = VideoCamera(flip=False) # flip pi camera if upside down.
 
-tank = vehicleClass()
+vehicle = vehicleClass()
 
 # App Globals (do not edit)
 app = Flask(__name__)
@@ -58,24 +58,29 @@ def control(message):
     data = message["data"]
     if "steeringData" in data.keys():
         print("received a steering mesage")
-        tank.x_axis = data["steeringData"]["X"]
-        tank.y_axis = data["steeringData"]["Y"]
-        if isDev: print(tank)
+        vehicle.x_axis = data["steeringData"]["X"]
+        vehicle.y_axis = data["steeringData"]["Y"]
+        vehicle.sendToSlave()
+        if isDev: print(vehicle)
         #linear.q.put(("left",x,y))
     elif "On" in data.keys():
         print("received a on message")
-        tank.modeAutonomous = True
+        vehicle.modeAutonomous = True
+        vehicle.sendToSlave()
         GPIO.output(40,GPIO.HIGH)
     elif "Off" in data.keys():
         print("received a off message")
-        tank.modeAutonomous = False
+        vehicle.modeAutonomous = False
+        vehicle.sendToSlave()
         GPIO.output(40,GPIO.LOW)
     elif "Vert" in data.keys():
         print("received a Vert message")
-        tank.servo1_pos = data["Vert"]
+        vehicle.servo1_pos = data["Vert"]
+        vehicle.sendToSlave()
     elif "Horr" in data.keys():
         print("received a Horr message")
-        tank.servo2_pos = data["Horr"]
+        vehicle.servo2_pos = data["Horr"]
+        vehicle.sendToSlave()
     elif "info" in data.keys():
         print(data["info"])
 
