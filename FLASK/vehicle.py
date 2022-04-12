@@ -19,7 +19,7 @@ class vehicleClass:
 
     def sendToSlave(self):
         data = [0 for t in range(5)]
-        data[0] = lambda x: 1 if self.modeAutonomous else 0
+        data[0] = int(self.modeAutonomous)
         data[1] = self.calculateLeftTrack()
         data[2] = self.calculateRightTrack()
         data[3] = self.servo1_pos + 10
