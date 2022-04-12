@@ -24,6 +24,7 @@ class vehicleClass:
         data[2] = self.calculateRightTrack()
         data[3] = self.servo1_pos + 10
         data[4] = self.servo2_pos + 10
+        print(data)
 
         self.bus.write_block_data(self.adress,0,data)
 
