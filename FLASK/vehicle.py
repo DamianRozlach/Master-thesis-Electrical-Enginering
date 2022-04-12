@@ -20,10 +20,10 @@ class vehicleClass:
     def sendToSlave(self):
         data = [0 for t in range(5)]
         data[0] = int(self.modeAutonomous)
-        data[1] = self.calculateLeftTrack()
-        data[2] = self.calculateRightTrack()
-        data[3] = self.servo1_pos + 10
-        data[4] = self.servo2_pos + 10
+        data[1] = int(self.calculateLeftTrack())
+        data[2] = int(self.calculateRightTrack())
+        data[3] = int(self.servo1_pos + 10)
+        data[4] = int(self.servo2_pos + 10)
         print(data)
 
         self.bus.write_block_data(self.adress,0,data)
