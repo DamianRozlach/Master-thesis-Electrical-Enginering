@@ -97,6 +97,7 @@ def default_error_handler(e):
     print(request.event["message"])
     print(request.event["args"])
     print(e)
+    vehicle.sendToSlave()
 
 if __name__ == '__main__':
 
