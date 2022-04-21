@@ -65,12 +65,35 @@ void TaskCommunication(void *pvParameters)
       {
         Serial.println("Notification received");
         while(Wire.available())
-        {
-           Serial.print(Wire.available());
-           Serial.print(": ");
+        {  
            int x = Wire.read();
-           Serial.print(x);
-           Serial.print(" ");
+           switch (Wire.available()) 
+           {
+             case 4:
+               mode = bool(x);
+             break;
+             case 3:
+               LeftTrack = x;
+             break;
+             case 2:
+               RightTrack = x;
+             break;
+             case 1:
+               servo1 = x;
+             break;
+             case 0:
+               servo2 = x;
+             break;
+             default:
+             ;
+             break;
+           }
+           if(debug){
+             Serial.print(Wire.available());
+             Serial.print(": ");
+             Serial.print(x);
+             Serial.print(" ");
+           }
         }
         Serial.println();
       } 
