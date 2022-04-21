@@ -48,7 +48,7 @@ void TaskCommunication(void *pvParameters)
 {
    (void) pvParameters;
 
-   Wire.setClock(400000);
+   Wire.setClock(100000);
    Wire.begin(slaveAdressI2c);                // join i2c bus
    Wire.onReceive(receiveEventHandler);
    if(debug)
