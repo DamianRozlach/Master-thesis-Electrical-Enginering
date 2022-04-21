@@ -21,6 +21,7 @@ GPIO.output(40,GPIO.LOW)
 Payload.max_decode_packets = 500
 
 isDev = TRUE
+sendTime = time.time_ns()
 pi_camera = VideoCamera(flip=False) # flip pi camera if upside down.
 
 vehicle = vehicleClass()
@@ -60,7 +61,9 @@ def control(message):
         print("received a steering mesage")
         vehicle.x_axis = data["steeringData"]["X"]
         vehicle.y_axis = data["steeringData"]["Y"]
-        vehicle.sendToSlave()
+        if((vehicle.x_axis==0 and vehicle.y_axis ==0) or (sendTime + 10**8 < time.time_ns())):
+            vehicle.sendToSlave()
+            sendTime = time.time_ns()
         if isDev: print(vehicle)
         #linear.q.put(("left",x,y))
     elif "On" in data.keys():
