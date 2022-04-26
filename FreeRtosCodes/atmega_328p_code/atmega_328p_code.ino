@@ -1,6 +1,7 @@
 #include <Arduino_FreeRTOS.h>
 #include <semphr.h>
 #include <Wire.h>
+#include <Servo.h>
 
 #define debug 1
 
@@ -29,15 +30,20 @@ TaskHandle_t TaskLineSensorsHandler;
 SemaphoreHandle_t xDataSemaphore;
 SemaphoreHandle_t autonomousSemaphore;
 
+Servo servo1;
+Servo servo2;
+
 const int motorPins[] = {M1A,M1B,M2A,M2B};
 int sizeArr = sizeof(motorPins) / sizeof(int);
+
+const TickType_t xDelay = 2500 / portTICK_PERIOD_MS;
 
 
 bool mode = false;
 int LeftTrack = 0;
 int RightTrack = 0;
-int servo1 = 0;
-int servo2 = 0;
+int servo1pos = 0;
+int servo2pos = 0;
 
 // Tasks
 
@@ -74,19 +80,20 @@ void setup()
 
   xTaskCreate(TaskRangeSensor, // Task function
               "TaskRangeSensor", // Task name
-              128, // Stack size
+              64, // Stack size
               NULL,
               1, // Priority
               &TaskRangeSensorHandler ); // TaskHandle
 
   xTaskCreate(TaskLineSensors, // Task function
               "TaskLineSensors", // Task name
-              128, // Stack size
+              64, // Stack size
               NULL,
               1, // Priority
               &TaskLineSensorsHandler ); // TaskHandle
 
    vTaskSuspend(TaskAutonomousControlHandler);
+  
 }
 
 void loop() {
@@ -100,7 +107,7 @@ void TaskCommunication(void *pvParameters)
    (void) pvParameters;
    bool lastState = false;
 
-   Wire.setClock(100000);
+   //Wire.setClock(100000);
    Wire.begin(slaveAdressI2c);                
    Wire.onReceive(receiveEventHandler);
    if(debug)
@@ -110,12 +117,12 @@ void TaskCommunication(void *pvParameters)
       {
       ; // wait for Serial connection
       }
+      Serial.print("i am alive");
     }
     for(;;)
     {
        if (ulTaskNotifyTake(pdTRUE, portMAX_DELAY)) 
       {
-        Serial.println("Notification received");
         while(Wire.available())
         {  
            int x = Wire.read();
@@ -131,10 +138,10 @@ void TaskCommunication(void *pvParameters)
                RightTrack = x - 100;
              break;
              case 1:
-               servo1 = x;
+               servo1pos = x;
              break;
              case 0:
-               servo2 = x;
+               servo2pos = x;
              break;
              default:
              ;
@@ -150,7 +157,6 @@ void TaskCommunication(void *pvParameters)
         if(debug){
           Serial.println();
         }
-        Serial.println();
         if(mode != lastState){
           if(mode){
             vTaskResume( TaskAutonomousControlHandler );
@@ -171,6 +177,10 @@ void TaskCommunication(void *pvParameters)
 void TaskAutonomousControl(void *pvParameters)
 {
   (void) pvParameters;
+  for(;;){
+    vTaskDelay( xDelay );
+  }
+  
 }
 
 // ----------------------------------------- TASK Remote Control ----------------------------
@@ -181,8 +191,8 @@ void TaskRemoteControl(void *pvParameters)
   for(;;){
     ulTaskNotifyTake( pdTRUE, portMAX_DELAY );
     setMotors(LeftTrack,RightTrack);
-    analogWrite(servo1Pin,map(servo1,0,20,servo1Min,servo1Max));
-    analogWrite(servo2Pin,map(servo2,0,20,servo2Min,servo2Max));
+    servo1.write(map(servo1pos,0,20,servo1Min,servo1Max));
+    servo2.write(map(servo2pos,0,20,servo2Min,servo2Max));
   } 
 }
 
@@ -190,12 +200,18 @@ void TaskRemoteControl(void *pvParameters)
 void TaskRangeSensor(void *pvParameters)
 {
   (void) pvParameters;
+  for(;;){
+    vTaskDelay( xDelay );
+  }
 }
 
 // ----------------------------------------- TASK Line Sensors ----------------------------
 void TaskLineSensors(void *pvParameters)
 {
   (void) pvParameters;
+  for(;;){
+    vTaskDelay( xDelay );
+  }
 }
 
 // ----------------------------------------- event notification ----------------------------
@@ -255,9 +271,9 @@ void initializeHardware(){
 
   stopMotors();
 
-  pinMode(servo1Pin,OUTPUT);
-  pinMode(servo2Pin,OUTPUT);
+  servo1.attach(servo1Pin);
+  servo2.attach(servo2Pin);
 
-  analogWrite(servo1Pin,map(10,0,20,servo1Min,servo1Max));
-  analogWrite(servo2Pin,map(10,0,20,servo2Min,servo2Max));
+  servo1.write(map(10,0,20,servo1Min,servo1Max));
+  servo2.write(map(10,0,20,servo2Min,servo2Max));
 }
