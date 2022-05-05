@@ -22,7 +22,7 @@ Payload.max_decode_packets = 500
 
 isDev = TRUE
 sendTime = time.time_ns()
-pi_camera = VideoCamera(flip=False) # flip pi camera if upside down.
+pi_camera = VideoCamera(flip=True) 
 
 vehicle = vehicleClass()
 
