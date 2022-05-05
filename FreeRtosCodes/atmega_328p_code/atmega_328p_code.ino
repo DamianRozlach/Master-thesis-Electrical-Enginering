@@ -16,10 +16,10 @@
 #define rightSensor A1
 
 #define maxSpeed 255
-#define servo1Min 0
-#define servo1Max 255
+#define servo1Min 15
+#define servo1Max 90
 #define servo2Min 0
-#define servo2Max 255
+#define servo2Max 180
 
 TaskHandle_t taskCommunicationHandler;
 TaskHandle_t TaskAutonomousControlHandler;
@@ -192,7 +192,7 @@ void TaskRemoteControl(void *pvParameters)
     ulTaskNotifyTake( pdTRUE, portMAX_DELAY );
     setMotors(LeftTrack,RightTrack);
     servo1.write(map(servo1pos,0,20,servo1Min,servo1Max));
-    servo2.write(map(servo2pos,0,20,servo2Min,servo2Max));
+    servo2.write(map(servo2pos,0,20,servo2Max,servo2Min));
   } 
 }
 
