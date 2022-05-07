@@ -15,12 +15,15 @@
 #define servo2Pin 5
 #define leftSensor A0
 #define rightSensor A1
+#define echoPin 12
+#define trigPin 13
 
 #define maxSpeed 255
 #define servo1Min 15
 #define servo1Max 90
 #define servo2Min 0
 #define servo2Max 180
+#define threshold 800
 
 struct Data {
   bool mode;
@@ -49,9 +52,9 @@ Servo servo2;
 const int motorPins[] = {M1A,M1B,M2A,M2B};
 int sizeArr = sizeof(motorPins) / sizeof(int);
 
-Data dataRec = {false,0,0,0,0};
 
-const TickType_t xDelay = 2500 / portTICK_PERIOD_MS;
+
+const TickType_t xDelay = 45 / portTICK_PERIOD_MS;
 
 
 
@@ -74,7 +77,7 @@ void setup()
 {
   initializeHardware();
 
-  lineQueue =  xQueueCreate(1,sizeof(int)); 
+  lineQueue =  xQueueCreate(1,2*sizeof(int)); 
   rangeQueue =  xQueueCreate(1,sizeof(int));
   dataQueue =  xQueueCreate(3,sizeof(struct Data));
   
@@ -87,7 +90,7 @@ void setup()
 
   xTaskCreate(TaskAutonomousControl, // Task function
               "Autonomous Control", // Task name
-              128, // Stack size
+              256, // Stack size
               NULL,
               2, // Priority
               &TaskAutonomousControlHandler ); // TaskHandle
@@ -101,14 +104,14 @@ void setup()
 
   xTaskCreate(TaskRangeSensor, // Task function
               "TaskRangeSensor", // Task name
-              64, // Stack size
+              128, // Stack size
               NULL,
               1, // Priority
               &TaskRangeSensorHandler ); // TaskHandle
 
   xTaskCreate(TaskLineSensors, // Task function
               "TaskLineSensors", // Task name
-              64, // Stack size
+              128, // Stack size
               NULL,
               1, // Priority
               &TaskLineSensorsHandler ); // TaskHandle
@@ -127,6 +130,8 @@ void TaskCommunication(void *pvParameters)
 {
    (void) pvParameters;
    bool lastState = false;
+
+   Data dataRec = {false,0,0,0,0};
 
 
    //Wire.setClock(100000);
@@ -187,7 +192,7 @@ void TaskCommunication(void *pvParameters)
           }
         }
         if(!dataRec.mode){
-          xTaskNotifyGive(TaskRemoteControlHandler);
+          xQueueSend(dataQueue,&dataRec, portMAX_DELAY);
         }
         lastState = dataRec.mode;
       } 
@@ -199,9 +204,39 @@ void TaskCommunication(void *pvParameters)
 void TaskAutonomousControl(void *pvParameters)
 {
   (void) pvParameters;
+  bool isRetreating = 0;
+  bool retreatDir =0;
+  int lineData[] = {0,0};
+  int rangeData = 0;
   for(;;){
-    //xTaskNotifyGive(TaskLineSensorsHandler);
-    //xTaskNotifyGive(TaskRangeSensorHandler);
+    xTaskNotifyGive(TaskLineSensorsHandler);
+    xTaskNotifyGive(TaskRangeSensorHandler);
+    xQueueReceive(lineQueue,&lineData, portMAX_DELAY);
+    xQueueReceive(rangeQueue,&rangeData, portMAX_DELAY);
+    if(rangeData < 20 && !isRetreating){
+      setMotors(-40,-80);
+      isRetreating = true;
+    } else if(rangeData>30 && isRetreating){
+      isRetreating = false;
+      stopMotors();
+    } else if(lineData[0]< threshold && lineData[1]< threshold && !isRetreating){
+      setMotors(70,70);
+    } else if(lineData[0] > threshold && lineData[1]> threshold && !isRetreating){
+      setMotors(-50,-70);
+    } else if (lineData[0] > threshold && !isRetreating){
+      setMotors(-30,30);
+    } else if (lineData[1] > threshold && !isRetreating){
+      setMotors(30,-30);
+    }
+
+    if(debug){
+      Serial.print( lineData[0]);
+      Serial.print("   ");
+      Serial.print( lineData[1]);
+      Serial.println();
+      Serial.println();
+    }
+    
     vTaskDelay( xDelay );
   }
   
@@ -212,11 +247,13 @@ void TaskRemoteControl(void *pvParameters)
 {
   (void) pvParameters;
 
+  Data dataRecRem = {false,0,0,0,0};
+
   for(;;){
-    ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
-    setMotors(dataRec.LeftTrack,dataRec.RightTrack);
-    servo1.write(map(dataRec.servo1pos,0,20,servo1Min,servo1Max));
-    servo2.write(map(dataRec.servo2pos,0,20,servo2Max,servo2Min));
+    xQueueReceive(dataQueue,&dataRecRem, portMAX_DELAY);
+    setMotors(dataRecRem.LeftTrack,dataRecRem.RightTrack);
+    servo1.write(map(dataRecRem.servo1pos,0,20,servo1Min,servo1Max));
+    servo2.write(map(dataRecRem.servo2pos,0,20,servo2Max,servo2Min));
   } 
 }
 
@@ -224,8 +261,19 @@ void TaskRemoteControl(void *pvParameters)
 void TaskRangeSensor(void *pvParameters)
 {
   (void) pvParameters;
+
+  long duration;
+  int distance;
   for(;;){
-    vTaskDelay( xDelay );
+    ulTaskNotifyTake( pdTRUE, portMAX_DELAY );
+    digitalWrite(trigPin, LOW);
+    delayMicroseconds(2);
+    digitalWrite(trigPin, HIGH);
+    delayMicroseconds(10);
+    digitalWrite(trigPin, LOW);
+    duration = pulseIn(echoPin, HIGH);
+    distance = duration * 0.034 / 2; 
+    xQueueSend(rangeQueue,&distance, portMAX_DELAY);
   }
 }
 
@@ -235,8 +283,10 @@ void TaskLineSensors(void *pvParameters)
   (void) pvParameters;
   int sensorState[]={0,0};
   for(;;){
-    //ulTaskNotifyTake( pdTRUE, portMAX_DELAY );
-    vTaskDelay( xDelay );
+    ulTaskNotifyTake( pdTRUE, portMAX_DELAY );
+    sensorState[0]=analogRead(leftSensor);
+    sensorState[1]=analogRead(rightSensor);
+    xQueueSend(lineQueue,&sensorState, portMAX_DELAY);
   }
 }
 
@@ -294,6 +344,9 @@ void initializeHardware(){
   for(int z = 0; z < sizeArr ;z++){
     pinMode(motorPins[z]  , OUTPUT);
   }
+
+  pinMode(echoPin,INPUT);
+  pinMode(trigPin,OUTPUT);
 
   stopMotors();
 
