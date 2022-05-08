@@ -4,7 +4,7 @@
 #include <Servo.h>
 #include <queue.h>
 
-#define debug 1
+#define debug 0
 
 #define slaveAdressI2c 8
 #define M1A 6
