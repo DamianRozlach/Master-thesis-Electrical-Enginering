@@ -196,6 +196,7 @@ buttonOff.onclick = function(){
 
 buttonUp.onclick = function(){
   servoVer += 1;
+  buttonDown.style.opacity=1;
   if (servoVer > 10) {
     servoVer = 10;
   }
@@ -210,6 +211,7 @@ buttonUp.onclick = function(){
 
 buttonDown.onclick = function(){
   servoVer -= 1;
+  buttonUp.style.opacity = 1;
   if (servoVer < -10) {
     servoVer = -10;
   }
@@ -224,6 +226,7 @@ buttonDown.onclick = function(){
 
 buttonLeft.onclick = function(){
   servoHor -= 1;
+  buttonRight.style.opacity = 1;
   if (servoHor < -10) {
     servoHor = -10;
   }
@@ -238,6 +241,7 @@ buttonLeft.onclick = function(){
 
 buttonRight.onclick = function(){
   servoHor += 1;
+  buttonLeft.style.opacity =1;
   if (servoHor > 10) {
     servoHor = 10;
   }

@@ -37,7 +37,7 @@ socketio = SocketIO(app)
 
 @app.route('/')
 def index():
-    return render_template('index.html') #you can customze index.html here
+    return render_template('index.html')
 
 def gen(camera):
     #get camera frame
